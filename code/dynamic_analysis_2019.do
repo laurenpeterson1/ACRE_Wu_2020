@@ -2,8 +2,8 @@ clear
 set more off
 capture log close
 
-local dir_data="\\Client\H$\Downloads\dataverse\data\"
-local dir_output="\\Client\H$\Downloads\dataverse\results_dynamic\"
+local dir_data="\\Client\H$\Documents\GitHub\ACRE_Wu_2020\data\"
+local dir_output="\\Client\H$\Documents\GitHub\ACRE_Wu_2020\results_dynamic\"
 
 use "`dir_data'full_sample2019_stata_final.dta"
 
