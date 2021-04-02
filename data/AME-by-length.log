@@ -1,12 +1,18 @@
 --------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  \\Client\H$\Documents\GitHub\ACRE_Wu_2020\results_dynamic\mlogit-fu
-> ll-before-Aug2017.log
+       log:  \\Client\H$\Documents\GitHub\ACRE_Wu_2020\data\AME-by-length.log
   log type:  text
- opened on:  29 Mar 2021, 15:14:18
+ opened on:   1 Apr 2021, 23:51:19
 
-. model_transition,job(0)
-From Purely Professional
+. mlogit transition ib(2).female_lag ib(2).female_lag##ib(2).title_female ib(2).
+> female_lag##ib(1).title_p_acad_d ///
+>         ib(2).female_lag##ib(0).title_person_dummy ib(2).female_lag##ib(2).fir
+> st_female ib(2).female_lag##ib(1).first_p_acad ///
+>         ib(2).female_lag##ib(0).first_person_dummy ib(2).female_lag##c.group_p
+> _acad_d ib(2).female_lag##c.group_person_d ///
+>         ib(2).female_lag##ib(9).job_rank_lag ib(2).female_lag##c.ln_post2 if p
+> _acad_dummy_lag==1 & post_miss_lag!=1 & post_miss!=1, base(3) cluster(title_id
+> 1) robust   
 
 Iteration 0:   log pseudolikelihood = -526658.78  
 Iteration 1:   log pseudolikelihood = -445172.12  
@@ -221,35 +227,12 @@ group_perso~y |
 --------------+----------------------------------------------------------------
 3             |  (base outcome)
 -------------------------------------------------------------------------------
-average ME
 
-Average marginal effects                        Number of obs     =    559,786
-Model VCE    : Robust
+. 
+. _pctile ln_post2 if p_acad_dummy_lag==1 & post_miss_lag!=1 & post_miss!=1, nq(
+> 10)
 
-dy/dx w.r.t. : 0.female_lag 1.female_lag
-1._predict   : Pr(transition==1), predict(pr outcome(1))
-2._predict   : Pr(transition==2), predict(pr outcome(2))
-3._predict   : Pr(transition==3), predict(pr outcome(3))
-
--------------------------------------------------------------------------------
-              |            Delta-method
-              |      dy/dx   Std. Err.      z    P>|z|     [95% Conf. Interval]
---------------+----------------------------------------------------------------
-0.female_lag  |
-     _predict |
-           1  |  -.0063891   .0015652    -4.08   0.000    -.0094568   -.0033214
-           2  |   .0005738    .001039     0.55   0.581    -.0014625    .0026101
-           3  |   .0058153   .0015113     3.85   0.000     .0028533    .0087773
---------------+----------------------------------------------------------------
-1.female_lag  |
-     _predict |
-           1  |  -.0289411   .0044451    -6.51   0.000    -.0376534   -.0202289
-           2  |   .0103718   .0026815     3.87   0.000     .0051162    .0156273
-           3  |   .0185694   .0041928     4.43   0.000     .0103517    .0267871
---------------+----------------------------------------------------------------
-2.female_lag  |  (base outcome)
--------------------------------------------------------------------------------
-Note: dy/dx for factor levels is the discrete change from the base level.
+. return list
 
 scalars:
                  r(r1) =  .6931471824645996
@@ -261,3 +244,6 @@ scalars:
                  r(r7) =  2.56494927406311
                  r(r8) =  2.833213329315186
                  r(r9) =  3.135494232177734
+
+. margins,dydx(i.female_lag) at(ln_post2=(0 `r(r1)' `r(r2)' `r(r3)' `r(r4)' `r(r
+> 5)' `r(r6)' `r(r7)' `r(r8)' `r(r9)'))
